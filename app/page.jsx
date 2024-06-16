@@ -1,26 +1,25 @@
 "use client";
-import { Button, DarkThemeToggle, Flowbite } from "flowbite-react";
 import React, { useEffect, useState } from "react";
+import { getMovies } from "./libs/api";
+import Header from "./components/header";
+import CardList from "./components/cardList";
 
 const Page = () => {
-	const [todo, setTodo] = useState([]);
+	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-			const jsn = await res.json();
-			setTodo(jsn);
+			const res = await getMovies("trending/all/day");
+			setMovies(res);
 		};
 
 		fetchData();
 	}, []);
 
 	return (
-		<div className="text-center text-gray-200 min-h-screen w-screen">
-			wio wio wio HELLO WORLD
-			{todo.map((data) => (
-				<p key={data.id}>{data.title}</p>
-			))}
+		<div className="text-center text-gray-200 w-full">
+			<Header title="Popular" />
+			<CardList data={movies} />
 		</div>
 	);
 };
