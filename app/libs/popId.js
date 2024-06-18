@@ -1,3 +1,3 @@
 export const popId = (slug) => {
-	return slug.split("-").pop();
+	return Number(slug.split("-").pop());
 };

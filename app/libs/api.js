@@ -12,6 +12,5 @@ export const getMovies = async (endpoint) => {
 		options
 	);
 	const res = await data.json();
-
 	return res;
 };
