@@ -18,20 +18,14 @@ const Page = ({ params: { type, slug } }) => {
 	const url = usePathname();
 
 	const [movie, setMovie] = useState(null);
-	const [recommendations, setRecomendations] = useState(null);
-	const [cast, setCast] = useState(null);
 	const [dataFetched, setDataFetched] = useState(false);
 
 	useEffect(() => {
 		const getMovie = async () => {
-			const detailMovie = await getMovies(`${type}/${popId(slug)}`);
-			const recommendation = await getMovies(
-				`${type}/${popId(slug)}/recommendations`
+			const detailMovie = await getMovies(
+				`${type}/${popId(slug)}?append_to_response=recommendations%2Ccredits`
 			);
-			const cast = await getMovies(`${type}/${popId(slug)}/credits`);
 			setMovie(detailMovie);
-			setRecomendations(recommendation);
-			setCast(cast);
 			setDataFetched(true);
 		};
 		getMovie();
@@ -49,7 +43,7 @@ const Page = ({ params: { type, slug } }) => {
 				notFound();
 			}
 		}
-	}, [dataFetched, type, movie, cast]);
+	}, [dataFetched, type, movie]);
 
 	return (
 		<>
@@ -123,12 +117,12 @@ const Page = ({ params: { type, slug } }) => {
 
 					<div>
 						<SubHeader title="Casts" />
-						<CastCard data={cast} />
+						<CastCard data={movie?.credits} />
 					</div>
 
 					<div>
 						<SubHeader title="Recommendations" />
-						<CardList data={recommendations} />
+						<CardList data={movie?.recommendations} />
 					</div>
 				</div>
 			)}
