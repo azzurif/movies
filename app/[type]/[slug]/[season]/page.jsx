@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 const Page = async ({ params: { type, slug, season } }) => {
 	const tv = await getMovies(`tv/${popId(slug)}`);
 
-	if (type !== "tv" || season !== "seasons") {
+	if (type !== "tv" || season !== "seasons" || !tv.id) {
 		notFound();
 	}
 
@@ -32,7 +32,10 @@ const Page = async ({ params: { type, slug, season } }) => {
 							/>
 						</figure>
 						<div className="card-body my-auto">
-							<Link href={`/tv/${slug}/season/${item.season_number}`} className="card-title text-2xl">
+							<Link
+								href={`/tv/${slug}/season/${item.season_number}`}
+								className="card-title text-2xl"
+							>
 								{item.name}
 							</Link>
 							<ul className="list-disc gap-6 text-sm mb-4 ml-5 md:ml-0 md:space-y-0 md:flex md:gap-6">
