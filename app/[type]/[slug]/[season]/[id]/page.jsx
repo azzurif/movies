@@ -35,7 +35,7 @@ const Page = async ({ params: { type, slug, season, id } }) => {
 							/>
 						</figure>
 						<div className="card-body my-auto flex flex-col items-start">
-							<h2 className="card-title text-lg md:text-2xl">{item.name}</h2>
+							<h2 className="card-title text-lg md:text-2xl">{item.episode_number} {item.name}</h2>
 							<ul className="list-disc gap-6 text-sm mb-4 ml-5 md:ml-0 md:space-y-0 md:flex md:gap-6">
 								<li className="md:list-none">{item.air_date}</li>
 								<li>{timeConvert(item.runtime)}</li>
