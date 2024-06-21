@@ -17,7 +17,7 @@ const CardList = ({ data }) => {
 				}-${item.id}`;
 
 				return (
-					<Link href={`/${item.media_type}/${slug}`} key={item.id}>
+					<Link href={`/${item.title ? "movie" : "tv"}/${slug}`} key={item.id}>
 						<div className="card card-compact w-auto bg-base-100 shadow-xl min-h-full">
 							<figure>
 								<img
