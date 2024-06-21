@@ -6,7 +6,6 @@ import SubHeader from "@/app/components/subHeader";
 import Image from "next/image";
 import Link from "next/link";
 import { getMovies } from "@/app/libs/api";
-import { GetPathname } from "@/app/libs/getPathname";
 import { getYear } from "@/app/libs/getYear";
 import { popId } from "@/app/libs/popId";
 import { timeConvert } from "@/app/libs/timeConvert";
@@ -75,9 +74,7 @@ const Page = async ({ params: { type, slug } }) => {
 								<>
 									<div className="flex items-center gap-3 mt-2">
 										<Link
-											href={`${GetPathname()}/season/${
-												movie?.last_episode_to_air?.season_number
-											}`}
+											href={`/${type}/${slug}/season/${movie?.last_episode_to_air?.season_number}`}
 											className="flex items-center gap-2 text-accent font-semibold text-sm md:text-base"
 										>
 											Season {movie?.last_episode_to_air?.season_number}
@@ -86,7 +83,7 @@ const Page = async ({ params: { type, slug } }) => {
 										</Link>
 										|
 										<Link
-											href={`${GetPathname()}/seasons`}
+											href={`/${type}/${slug}/seasons`}
 											className="hover:text-accent"
 										>
 											View all seasons
