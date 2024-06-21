@@ -1,56 +1,33 @@
-"use client";
 import CardList from "@/app/components/cardList";
 import CastCard from "@/app/components/castCard";
 import Header from "@/app/components/header";
 import Detail from "@/app/components/skeleton/detail";
 import SubHeader from "@/app/components/subHeader";
+import Image from "next/image";
+import Link from "next/link";
 import { getMovies } from "@/app/libs/api";
+import { GetPathname } from "@/app/libs/getPathname";
 import { getYear } from "@/app/libs/getYear";
 import { popId } from "@/app/libs/popId";
 import { timeConvert } from "@/app/libs/timeConvert";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
-const Page = ({ params: { type, slug } }) => {
-	const url = usePathname();
-
-	const [movie, setMovie] = useState(null);
-	const [dataFetched, setDataFetched] = useState(false);
-
-	useEffect(() => {
-		const getMovie = async () => {
-			const detailMovie = await getMovies(
-				`${type}/${popId(slug)}?append_to_response=recommendations%2Ccredits`
-			);
-			setMovie(detailMovie);
-			setDataFetched(true);
-		};
-		getMovie();
-	}, []);
+const Page = async ({ params: { type, slug } }) => {
+	const movie = await getMovies(
+		`${type}/${popId(slug)}?append_to_response=recommendations%2Ccredits`
+	);
 
 	const genres = movie?.genres?.map((item) => item.name).join(", ");
 	const country = movie?.origin_country?.map((item) => item).join(" | ");
 
-	useEffect(() => {
-		if (dataFetched) {
-			if (
-				(type !== "movie" && type !== "tv") ||
-				Object.keys(movie).length <= 3
-			) {
-				notFound();
-			}
-		}
-	}, [dataFetched, type, movie]);
+	if ((type !== "movie" && type !== "tv") || !movie?.id) notFound();
 
 	return (
 		<>
 			<title>{movie?.title || movie?.name}</title>
-			{!dataFetched ? (
-				<Detail />
-			) : (
+			<Suspense fallback={<Detail />}>
 				<div>
 					<div className="flex flex-col md:flex-row justify-center w-full gap-4 py-5">
 						<div className="md:hidden text-center md:text-left">
@@ -98,7 +75,9 @@ const Page = ({ params: { type, slug } }) => {
 								<>
 									<div className="flex items-center gap-3 mt-2">
 										<Link
-											href={`${url}/season/${movie?.last_episode_to_air?.season_number}`}
+											href={`${GetPathname()}/season/${
+												movie?.last_episode_to_air?.season_number
+											}`}
 											className="flex items-center gap-2 text-accent font-semibold text-sm md:text-base"
 										>
 											Season {movie?.last_episode_to_air?.season_number}
@@ -106,7 +85,10 @@ const Page = ({ params: { type, slug } }) => {
 											<FaArrowRight />
 										</Link>
 										|
-										<Link href={`${url}/seasons`} className="hover:text-accent">
+										<Link
+											href={`${GetPathname()}/seasons`}
+											className="hover:text-accent"
+										>
 											View all seasons
 										</Link>
 									</div>
@@ -125,7 +107,7 @@ const Page = ({ params: { type, slug } }) => {
 						<CardList data={movie?.recommendations} />
 					</div>
 				</div>
-			)}
+			</Suspense>
 		</>
 	);
 };
