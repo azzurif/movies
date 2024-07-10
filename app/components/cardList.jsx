@@ -1,20 +1,12 @@
 import Link from "next/link";
 import React from "react";
+import GetSlug from "../libs/getSlug";
 
 const CardList = ({ data }) => {
 	return (
 		<div className="grid grid-cols-2 md:grid-cols-5 gap-4">
 			{data?.results?.map((item) => {
-				const slug = `${
-					item.title
-						?.toLowerCase()
-						.replace(/[^a-z0-9]+/g, "-")
-						.replace(/^-+|-+$/g, "") ||
-					item.name
-						?.toLowerCase()
-						.replace(/[^a-z0-9]+/g, "-")
-						.replace(/^-+|-+$/g, "")
-				}-${item.id}`;
+				const slug = GetSlug(item.title || item.name, item.id);
 
 				return (
 					<Link href={`/${item.title ? "movie" : "tv"}/${slug}`} key={item.id}>

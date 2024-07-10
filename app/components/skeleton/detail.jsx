@@ -1,4 +1,4 @@
-const Detail = () => {
+const Detail = async () => {
 	return (
 		<div className="flex flex-col gap-6 w-full max-h-screen">
 			<div className="flex flex-col md:flex-row gap-6">

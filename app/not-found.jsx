@@ -1,8 +1,11 @@
+export const metadata = {
+	title: "Not found",
+	description: "Not found page",
+};
+
 const NotFound = () => {
 	return (
-		<>
-			<title>Not found</title>
-			<div className="grid h-screen place-content-center px-">
+			<div className="grid min-h-screen place-content-center">
 				<div className="text-center">
 					<h1 className="text-9xl font-black">404</h1>
 
@@ -20,7 +23,6 @@ const NotFound = () => {
 					</a>
 				</div>
 			</div>
-		</>
 	);
 };
 

@@ -1,9 +1,9 @@
 import Header from "@/app/components/header";
+import Image from "next/image";
+import Link from "next/link";
 import { getMovies } from "@/app/libs/api";
 import { getYear } from "@/app/libs/getYear";
 import { popId } from "@/app/libs/popId";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 const Page = async ({ params: { type, slug, season } }) => {

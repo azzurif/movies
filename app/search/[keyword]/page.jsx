@@ -1,8 +1,6 @@
 import CardList from "@/app/components/cardList";
 import Header from "@/app/components/header";
 import { getMovies } from "@/app/libs/api";
-import Card from "@/app/components/skeleton/card";
-import { Suspense } from "react";
 
 const Page = async ({ params: { keyword } }) => {
 	const decodedKeyword = decodeURI(keyword);
@@ -13,9 +11,7 @@ const Page = async ({ params: { keyword } }) => {
 		<div className="w-full">
 			<title>{`Search for ${decodedKeyword}`}</title>
 			<Header title={`Result for: ${decodedKeyword}`} />
-			<Suspense fallback={<Card />}>
-				<CardList data={search} />
-			</Suspense>
+			<CardList data={search} />
 		</div>
 	);
 };

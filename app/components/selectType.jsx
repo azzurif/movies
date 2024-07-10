@@ -1,7 +1,7 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const SelectType = () => {
+const SelectType = ({ options }) => {
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const { replace } = useRouter();
@@ -27,8 +27,9 @@ const SelectType = () => {
 					handleSelect(e.target.value);
 				}}
 			>
-				<option value="movie">Movie</option>
-				<option value="tv">Tv series</option>
+				{options.map((option) => (
+					<option value={option.toLowerCase()}>{option}</option>
+				))}
 			</select>
 		</>
 	);
