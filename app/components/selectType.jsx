@@ -27,8 +27,10 @@ const SelectType = ({ options }) => {
 					handleSelect(e.target.value);
 				}}
 			>
-				{options.map((option) => (
-					<option value={option.toLowerCase()}>{option}</option>
+				{options.map((option, i) => (
+					<option value={option.toLowerCase()} key={i}>
+						{option}
+					</option>
 				))}
 			</select>
 		</>

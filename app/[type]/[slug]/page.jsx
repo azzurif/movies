@@ -33,7 +33,7 @@ const Page = async ({ params: { type, slug } }) => {
 		<>
 			<title>{movie?.title || movie?.name}</title>
 			<div>
-				<VideoPlayer trailerId={trailerId.key} />
+				<VideoPlayer trailerId={trailerId?.key} />
 			</div>
 			<div className="flex flex-col md:flex-row justify-center w-full gap-4 py-5">
 				<div className="md:hidden text-center md:text-left">
