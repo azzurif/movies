@@ -23,7 +23,7 @@ const Search = () => {
 			<input
 				type="text"
 				placeholder="Search"
-				className="input input-bordered w-40 md:w-auto "
+				className="input input-bordered w-40 md:w-auto"
 				ref={searchRef}
 				onKeyDown={handleSearch}
 			/>
